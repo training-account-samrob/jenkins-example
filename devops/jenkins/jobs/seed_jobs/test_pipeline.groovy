@@ -1,5 +1,5 @@
-pipelineJob('example') {
-    authenticationToken('release') // Enables remote triggering with this token
+pipelineJob('my_test_job') {
+    // authenticationToken('release') // Enables remote triggering with this token
     
     definition {
         cpsScm {
@@ -9,10 +9,10 @@ pipelineJob('example') {
                         url('https://github.com/training-account-samrob/jenkins-example.git')
                         credentials('github')
                     }
-                    branch('front-end')
+                    branch('main')
                 }
         }
-        scriptPath('devops/jenkins/jobs/build_jobs/auto_front_end_job.groovy')
+        scriptPath('devops/jenkins/jobs/build_jobs/auto_back_end_job.groovy')
         }
     }
 }
