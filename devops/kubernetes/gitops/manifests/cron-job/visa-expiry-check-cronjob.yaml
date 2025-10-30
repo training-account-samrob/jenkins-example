@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: visa-expiry-check-cronjob
+  namespace: app
+spec:
+  schedule: "20 14 * * *" # this is utc. 1pm utc is 2pm uk during bst
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: visa-check
+            image: samdroberts/visa-check-cronjob:7
+            env:
+              - name: DB_HOST
+                value: database-app-service
+              - name: DB_PORT
+                value: "5432"
+              - name: DB_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-secret
+                    key: POSTGRES_DB
+              - name: DB_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-secret
+                    key: POSTGRES_USER
+              - name: DB_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-secret
+                    key: POSTGRES_PASSWORD
+              - name: SENDGRID_API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: sendgrid-secret
+                    key: SENDGRID_API_KEY
+              - name: SENDGRID_FROM_EMAIL
+                valueFrom:
+                  secretKeyRef:
+                    name: sendgrid-secret
+                    key: FROM_EMAIL
+              - name: SENDGRID_TO_EMAILS
+                valueFrom:
+                  secretKeyRef:
+                    name: sendgrid-secret
+                    key: TO_EMAILS
+          restartPolicy: OnFailure
