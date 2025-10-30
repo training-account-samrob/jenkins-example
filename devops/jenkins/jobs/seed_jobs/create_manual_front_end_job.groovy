@@ -15,7 +15,7 @@ pipelineJob("${folderName}/${manual}/manual_front_end_build") {
             scm {
                 git {
                     remote {
-                        url('https://github.com/mustaqmstk/Visa-Holder-Movement-Tracker.git')
+                        url('https://github.com/training-account-samrob/jenkins-example.git')
                         credentials('github')
                     }
                     branch('devops')

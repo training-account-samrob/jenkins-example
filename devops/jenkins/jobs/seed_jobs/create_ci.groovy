@@ -13,7 +13,7 @@ pipelineJob("${folderName}/Automated_Release_Pipeline") {
             scm {
                 git {
                     remote {
-                        url('https://github.com/mustaqmstk/Visa-Holder-Movement-Tracker.git')
+                        url('https://github.com/training-account-samrob/jenkins-example.git')
                         credentials('github')
                     }
                     branch('main')
